@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Day 9</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="day-container">
+
+    <h1>🌸 Day 9 🌸</h1>
+
+    <p id="secret-text">
+    uk how you taught me to art? ive been practicing hehe
+</p>
+
+<button id="reveal-button" onclick="showImage()">
+    Show me 👀
+</button>
+
+<img
+    id="secret-image"
+    src="images/day9.jpg"
+    class="surprise-image"
+    style="display:none;"
+>
+
+    <p class="day-note">
+
+        i still love u btw
+
+    </p>
+
+    <a class="back-button" href="index.html">
+
+        ← Back to Advent Calendar
+
+    </a>
+
+</div>
+
+</body>
+</html>
+<script>
+
+function showImage() {
+
+    document.getElementById("secret-image")
+        .style.display = "block";
+
+    document.getElementById("reveal-button")
+        .style.display = "none";
+
+    document.getElementById("secret-text")
+        .textContent =
+        "mwahahahaaa";
+
+}
+
+
+</script>

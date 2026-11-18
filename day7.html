@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Day 7</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="day-container">
+
+    <h1>🌸 Day 7 🌸</h1>
+
+</div>
+
+
+<div class="button-row">
+
+    <button id="compliment-button">
+        Compliments
+    </button>
+
+    <button id="photo-button">
+        Photos
+    </button>
+
+</div>
+
+<p id="compliment-output"></p>
+
+</div>
+
+    <p class="day-note">
+
+        do u feel like a monkey in a psych experiment yet hehe
+
+    </p>
+
+    <a class="back-button" href="index.html">
+
+        ← Back to Advent Calendar
+
+    </a>
+
+</div>
+
+<div id="compliment-box">
+
+    <div id="floating-word"></div>
+
+</div>
+
+</body>
+</html>
+
+<script>
+
+
+document.getElementById("photo-button")
+    .onclick = function() {
+
+    const randomPhoto =
+    photos[
+        Math.floor(
+            Math.random() * photos.length
+        )
+    ];
+
+document.body.style.backgroundImage =
+    `url('${randomPhoto}')`;
+
+};
+
+let wordX = 300;
+let wordY = 300;
+
+let wordDX = 4;
+let wordDY = 3;
+ 
+const compliments = [
+   "Beautiful",
+   "Funny",
+   "Smart",
+   "Kind",
+   "My favourite person",
+   "Witty",
+   "Hardworking",
+   "Dilligent",
+   "Gorgeous",
+   "Cute",
+   "Future wife",
+   "Future Mother of my Children",
+   "Neffy",
+   "Sweaty",
+   "POOKIE",
+   "Mine",
+   "Love of my Life",
+   "My love",
+   "Intelligent",
+   "Gifted",
+   "Bright",
+   "Food Witch",
+   "Brilliant",
+   "Pooks",
+   "Kind",
+   "Caring",
+   "Compasionate",
+   "Driven",
+   "Awe-inspiring",
+   "Lovely",
+   "DA BESTEST EVER",
+   "The most caring wonderful gf in the world",
+   "hehe",
+   "awwwwwwww how many times u gonna keep pressing",
+   "Cutie patootie",
+   "B's other half",
+   "The Mr. Hyde to my Dr. Jekyll",
+   "Perfect teeth",
+   "abs",
+   "Cutest face in the west",
+   "Hot af"
+  
+]
+
+const photos = [
+    "images/day7a.jpg",
+    "images/day7b.jpg",
+    "images/day7c.jpg",
+    "images/day7d.jpg",
+    "images/day7e.jpg",
+    "images/day7f.jpg",
+    "images/day7g.jpg",
+    "images/day7h.jpg",
+    "images/day7i.jpg",
+    "images/day7j.jpg",
+];
+
+let shuffledCompliments = [];
+
+function shuffleCompliments() {
+
+    shuffledCompliments =
+        [...compliments];
+
+    shuffledCompliments.sort(
+        () => Math.random() - 0.5
+    );
+
+}
+
+shuffleCompliments();
+
+document.getElementById("compliment-button")
+    .onclick = function() {
+
+    if (shuffledCompliments.length === 0) {
+
+    shuffleCompliments();
+
+}
+
+const randomCompliment =
+    shuffledCompliments.pop();
+
+    const word =
+        document.getElementById("floating-word");
+
+    word.innerHTML =
+        randomCompliment;
+
+    word.style.display =
+    "block";
+
+    wordX = 300;
+    wordY = 300;
+
+};
+
+setInterval(function() {
+
+    const word =
+        document.getElementById("floating-word");
+
+    if (word.style.display !== "block") {
+        return;
+    }
+
+   wordX += wordDX;
+   wordY += wordDY;
+
+const box =
+    document.getElementById("compliment-box");
+
+const maxX =
+    box.clientWidth - word.offsetWidth;
+
+const maxY =
+    box.clientHeight - word.offsetHeight;
+  
+    if (wordX > maxX || wordX < 0) {
+    wordDX = -wordDX;
+}
+
+if (wordY > maxY || wordY < 0) {
+    wordDY = -wordDY;
+}
+    
+    word.style.left =
+        wordX + "px";
+
+    word.style.top =
+        wordY + "px";
+
+}, 20);
+
+</script>

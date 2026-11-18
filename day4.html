@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Day 4</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="day-container">
+
+ <h1>🌸 Day 4 🌸</h1>
+ <h2>Before / After 👀</h2>
+
+<img
+    id="pic1"
+    src="images/before3.jpeg"
+    onclick="toggleImage(this,
+    'images/before3.jpeg',
+    'images/after3.jpg')"
+    class="surprise-image"
+>
+
+<img
+    id="pic2"
+    src="images/before2.jpg"
+    onclick="toggleImage(this,
+    'images/before2.jpg',
+    'images/after2.jpg')"
+    class="surprise-image"
+>
+
+<img
+    id="pic3"
+    src="images/before1.jpg"
+    onclick="toggleImage(this,
+    'images/before1.jpg',
+    'images/after1.jpg')"
+    class="surprise-image"
+>
+
+
+
+    <p class="day-note">
+
+        whaaaaa awwwwwwww we've come so far
+
+    </p>
+
+    <a class="back-button" href="index.html">
+
+        ← Back to Advent Calendar
+
+    </a>
+
+</div>
+
+</body>
+</html>
+<script>
+
+function toggleImage(img, before, after) {
+
+    if (img.src.includes(before)) {
+
+        img.src = after;
+
+    } else {
+
+        img.src = before;
+
+    }
+
+}
+
+</script>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Day 1</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="day-container">
+
+    <h1>🌸 Day 1 🌸</h1>
+
+    <div class="surprise-box">
+
+    <video id="welcome-video" autoplay muted>
+        <source src="videos/day1.mp4" type="video/mp4">
+    </video>
+
+    <img
+        id="finished-image"
+        src="images/day1.jpg"
+        class="surprise-image"
+        style="display:none;"
+    >
+
+</div>
+
+    <p class="day-note">
+
+        Bae... ur the most amazingest gf in the world. I know things are hard rn, and studying so much is stressfull, BUT UR GOING TO GET THRU UR EXAMS. JUS 10 DAYS TO GO WHOOOOOOO.
+
+    </p>
+
+    <a class="back-button" href="index.html">
+
+        ← Back to Advent Calendar
+
+    </a>
+
+</div>
+
+</body>
+</html>
+<script>
+
+const video =
+    document.getElementById("welcome-video");
+
+video.onended = function() {
+
+    video.style.display = "none";
+
+    document.getElementById("finished-image")
+        .style.display = "block";
+
+};
+
+</script>

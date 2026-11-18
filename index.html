@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Neffy's Exam Advent Calendar</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div id="password-screen">
+
+    <h1>🌸 For Neffy 🌸</h1>
+
+    <p>
+        Enter the password to begin 💖
+    </p>
+
+    <input
+        type="password"
+        id="password-input"
+        placeholder="Password"
+    >
+
+    <br><br>
+
+    <button onclick="checkPassword()">
+        Enter
+    </button>
+
+</div>
+
+<div id="main-site" style="display:none;">
+
+    <div class="container">
+
+        <h1>🌸 Neffy's Exam Advent Calendar 🌸</h1>
+
+        <p>
+            One lil surprise. Every day.
+        </p>
+
+        <div class="day-grid">
+
+            <a href="day1.html" class="day-box" data-day="1">Day 1</a>
+            <a href="day2.html" class="day-box" data-day="2">Day 2</a>
+            <a href="day3.html" class="day-box" data-day="3">Day 3</a>
+            <a href="day4.html" class="day-box" data-day="4">Day 4</a>
+            <a href="day5.html" class="day-box" data-day="5">Day 5</a>
+            <a href="day6.html" class="day-box" data-day="6">Day 6</a>
+            <a href="day7.html" class="day-box" data-day="7">Day 7</a>
+            <a href="day8.html" class="day-box" data-day="8">Day 8</a>
+            <a href="day9.html" class="day-box" data-day="9">Day 9</a>
+            <a href="day10.html" class="day-box" data-day="10">Day 10</a>
+
+        </div>
+
+    </div>
+
+</div>
+
+<p id="countdown"></p>
+
+<script>
+
+window.onload = function() {
+
+    if (
+        sessionStorage.getItem("authenticated")
+        === "true"
+    ) {
+
+        document.getElementById("password-screen")
+            .style.display = "none";
+
+        document.getElementById("main-site")
+            .style.display = "block";
+
+    }
+    updateUnlocks();
+
+}
+
+function checkPassword() {
+
+    const password =
+        document.getElementById("password-input").value;
+
+    if (password === "my sweaty") {
+
+    sessionStorage.setItem("authenticated", "true");
+
+    document.getElementById("password-screen")
+        .style.display = "none";
+
+    document.getElementById("main-site")
+        .style.display = "block";
+
+} else {
+
+    alert("I STILL LOVE YOUUUUUUU but nah try again hehe");
+
+}
+
+}
+function updateUnlocks() {
+
+    const startDate =
+        new Date("2026-11-19");
+
+    const today =
+        new Date();
+
+    const daysPassed =
+        Math.floor(
+            (today - startDate)
+            / (1000 * 60 * 60 * 24)
+        ) + 1;
+
+    const boxes =
+        document.querySelectorAll(".day-box");
+
+    boxes.forEach(box => {
+
+        const day =
+            parseInt(box.dataset.day);
+
+        if (day > daysPassed) {
+
+            box.classList.add("locked");
+           
+           box.innerHTML = '<span class="big-lock">🔒</span>';
+
+
+            box.onclick = function(event) {
+
+                event.preventDefault();
+
+                alert(
+                    "Not yet missy 😤💖 Come back tomorrow for the next box!"
+                );
+
+            };
+
+        }
+
+    });
+
+}
+
+const video =
+    document.getElementById("welcome-video");
+
+if (video) {
+
+    video.onended = function() {
+
+        video.style.display = "none";
+
+        document.getElementById("finished-image")
+            .style.display = "block";
+
+    };
+
+}
+
+function updateCountdown() {
+
+    const now = new Date();
+
+    const nextUnlock = new Date();
+
+    nextUnlock.setHours(0, 0, 0, 0);
+
+    nextUnlock.setDate(
+        nextUnlock.getDate() + 1
+    );
+
+    const difference =
+        nextUnlock - now;
+
+    const hours =
+        Math.floor(
+            difference / (1000 * 60 * 60)
+        );
+
+    const minutes =
+        Math.floor(
+            (difference % (1000 * 60 * 60))
+            / (1000 * 60)
+        );
+
+    const seconds =
+        Math.floor(
+            (difference % (1000 * 60))
+            / 1000
+        );
+
+    document.getElementById("countdown")
+        .innerHTML =
+        `⏰ Next day unlocks in: ${hours}h ${minutes}m ${seconds}s`;
+
+}
+
+updateCountdown();
+
+setInterval(
+    updateCountdown,
+    1000
+);
+</script>
+
+
+</body>
+</html>

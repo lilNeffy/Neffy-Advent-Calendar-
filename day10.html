@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Day 10</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="day-container">
+
+    <h1>🌸 Day 10 🌸</h1>
+    <h2>One Last Challenge </h2>
+
+    <p>
+     Guess the 6-letter word.
+    </p>
+
+ <input
+     type="text"
+     id="guess"
+     maxlength="6"
+>
+
+ <button onclick="checkGuess()">
+     Guess
+ </button>
+
+ <div id="result"></div>
+
+ 
+
+</div>
+
+    <p class="day-note">
+
+        checkmate, my love
+
+    </p>
+
+    <a class="back-button" href="index.html">
+
+        ← Back to Advent Calendar
+
+    </a>
+
+</div>
+
+<audio
+    id="victory-music"
+    src="music/mus2.mp3">
+</audio>
+
+<audio
+    id="puzzle-music"
+    src="music/mus1.mp3"
+    autoplay
+    loop>
+</audio>
+
+<img
+    id="final-photo"
+    src="images/day10a.jpg"
+    style="
+        display:none;
+        position:fixed;
+        top:0;
+        left:0;
+        width:100vw;
+        height:100vh;
+        object-fit:cover;
+        z-index:5000;
+    "
+>
+
+<p id="guess-counter">
+    Guesses left: 6
+</p>
+
+<div id="winner-banner">
+    YOU WIN
+</div>
+
+<img
+    id="chaos-photo"
+    class="spinning-photo"
+    src="images/day10.jpg"
+    style="
+        display:none;
+        position:fixed;
+        width:150px;
+        z-index:9999;
+        left:100px;
+        top:100px;
+    "
+>
+
+</body>
+</html>
+<script>
+
+let guessesLeft = 6;
+
+let chaosMode = false;
+
+let chaosCount = 1;
+
+let x = 100;
+let y = 100;
+
+let dx = 5;
+let dy = 9;
+
+setInterval(function() {
+
+    x += dx;
+    y += dy;
+
+    const photo =
+        document.getElementById("chaos-photo");
+
+    photo.style.left = x + "px";
+    photo.style.top = y + "px";
+   
+    if (x > window.innerWidth - 150 || x < 0) {
+
+    dx = -dx;
+
+    if (chaosMode) {
+    spawnSweaty();
+}
+}
+
+    if (y > window.innerHeight - 150 || y < 0) {
+    dy = -dy;
+}
+
+}, 20);
+
+function checkGuess() {
+   
+    if (guessesLeft <= 0) {
+    return;
+}
+
+
+    const guess =
+        document.getElementById("guess")
+        .value
+        .toUpperCase();
+
+    const secret =
+        "SWEATY";
+
+    if (guess.length !== 6) {
+
+    alert("Guess must be 6 letters!");
+
+    return;
+}
+
+    let result = "";
+
+    
+
+    for (let i = 0; i < 6; i++) {
+
+        if (guess[i] === secret[i]) {
+
+            result += "🟩";
+
+        } else if (secret.includes(guess[i])) {
+
+            result += "🟨";
+
+        } else {
+
+            result += "⬛";
+
+        }
+
+    }
+
+    guessesLeft--;
+
+     document.getElementById("guess-counter")
+     .innerHTML =
+     "Guesses left: " + guessesLeft;
+
+if (guessesLeft === 0 && guess !== secret) {
+
+    document.getElementById("result")
+        .innerHTML +=
+        "<br><br>😭 Out of guesses!";
+
+}
+
+    
+
+    document.getElementById("result")
+    .innerHTML += "<div>" + result + "</div>";
+   
+    document.getElementById("guess")
+    .value = "";
+
+    if (guess === secret) {
+        document.getElementById("chaos-photo")
+             .style.display = "block";
+
+        chaosMode = true;
+
+        document.getElementById("winner-banner")
+             .style.display = "block";
+        
+        document.getElementById("puzzle-music")
+             .pause();
+
+        document.getElementById("victory-music")
+             .play();   
+
+        document.getElementById("result")
+            .innerHTML +=
+          "<br><br>🎉 YOU GOT IT 😭💖";
+
+        document.getElementById("final-photo")
+         .style.display = "block";
+
+     guessesLeft = 0;
+
+    }
+
+}
+
+function spawnSweaty() {
+
+    if (chaosCount >= 50) {
+
+    window.location.href =
+        "index.html";
+
+    return;
+}
+
+    chaosCount++;
+
+    const sweaty =
+        document.createElement("img");
+    
+    sweaty.dataset.dx =
+    Math.random() * 15 - 4;
+
+    sweaty.dataset.dy =
+    Math.random() * 20 - 4;
+
+   const startX =
+     Math.random() * (window.innerWidth - 150);
+
+ const startY =
+     Math.random() * (window.innerHeight - 150);
+
+ sweaty.style.left = startX + "px";
+ sweaty.style.top = startY + "px";
+
+ sweaty.dataset.x = startX;
+ sweaty.dataset.y = startY;
+
+    sweaty.src = "images/day10.jpg";
+
+    sweaty.className =
+        "spinning-photo";
+
+    sweaty.style.position =
+        "fixed";
+
+    sweaty.style.width =
+        "150px";
+
+    sweaty.style.left =
+    Math.random() *
+    (window.innerWidth - 150) + "px";
+
+    sweaty.style.top =
+    Math.random() *
+    (window.innerHeight - 150) + "px";
+
+    sweaty.style.zIndex =
+        "9999";
+    sweaty.classList.add("chaos-child");
+    console.log("child created");
+
+    console.log(
+    "X:",
+    sweaty.dataset.x,
+    "Y:",
+    sweaty.dataset.y
+);
+
+    document.body.appendChild(sweaty);
+  
+    setInterval(function() {
+
+    let childX =
+        parseFloat(sweaty.dataset.x);
+
+    let childY =
+        parseFloat(sweaty.dataset.y);
+
+    childX +=
+        parseFloat(sweaty.dataset.dx);
+
+    childY +=
+        parseFloat(sweaty.dataset.dy);
+
+    sweaty.dataset.x = childX;
+    sweaty.dataset.y = childY;
+
+    sweaty.style.left =
+        childX + "px";
+
+    sweaty.style.top =
+        childY + "px";
+
+    if (
+    childX > window.innerWidth - 150 ||
+    childX < 0
+) {
+
+    sweaty.dataset.dx =
+        -parseFloat(sweaty.dataset.dx);
+
+    spawnSweaty();
+
+}
+
+if (
+    childY > window.innerHeight - 150 ||
+    childY < 0
+) {
+    sweaty.dataset.dy =
+        -parseFloat(sweaty.dataset.dy);
+}
+
+}, 20);
+
+    console.log("Sweaties: " + chaosCount);
+
+}
+</script>
